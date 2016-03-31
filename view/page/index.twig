@@ -1,0 +1,41 @@
+{% extends "layout.twig" %}
+
+{% block content %}
+    <div class="container">
+        <h1>AWS EC2 instance control panel</h1>
+        <table class="table table-bordered table-striped table-hover">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Instance ID</th>
+                    <th>State</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for instance in instances %}
+                    <tr>
+                        <td>{{ instance.name }}</td>
+                        <td>{{ instance.id }}</td>
+                        <td>
+                            {% if instance.state == 'running' %}
+                                <span class="label label-success">{{ instance.state }}</span>
+                            {% elseif instance.state == 'stopped' %}
+                                <span class="label label-danger">{{ instance.state }}</span>
+                            {% else %}
+                                <span class="label label-warning">{{ instance.state }}</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if instance.state == 'running' %}
+                                <a href="/stop?token={{ instance.token }}" class="btn btn-danger" onclick="return confirm('Do you want to stop instance?')">Stop instance</a>
+                            {% elseif instance.state == 'stopped'%}
+                                <a href="/start?token={{ instance.token }}" class="btn btn-success" onclick="return confirm('Do you want to start instance?')">Start instance</a>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

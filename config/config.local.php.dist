@@ -1,0 +1,22 @@
+<?php
+
+$app['ec2'] = [
+    'client' => [
+        'version' => 'latest',
+        'region' => '', // your EC2 region
+        'credentials' => [
+            'key' => '', // your auth API key,
+            'secret' => '', // your secret API key
+        ],
+    ],
+    'dryRun' => true, // only do testing call, do not actually start/stop instance
+];
+
+// debug mode
+$app['debug'] = true;
+
+// konfigurace Twig
+$app['twig.options'] = [
+    'auto_reload' => true,
+    'debug' => true,
+];
